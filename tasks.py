@@ -145,12 +145,12 @@ def deploy(repo,branch,token):
     image_tag = commit_hash[:10]
     clone_repo_with_token("github.com/"+repo,token,branch,'/tmp/'+image_tag)
     repo_name = repo.split('/')[-1]
-    # try:
-    #     build_and_push_image('/tmp/'+image_tag,project_id,repo_name,image_tag,registry)
-    # except:
-    #     subprocess.run("rm -rf /tmp/"+image_tag,shell=True)
-    #     print("BUILD FAILED")
-    #     return None
+    try:
+        build_and_push_image('/tmp/'+image_tag,project_id,repo_name,image_tag,registry)
+    except:
+        subprocess.run("rm -rf /tmp/"+image_tag,shell=True)
+        print("BUILD FAILED")
+        return None
     #delete git repo
     subprocess.run("rm -rf /tmp/"+image_tag,shell=True)
     #read deployment,service,ingress template
