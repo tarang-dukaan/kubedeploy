@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{deployment_name}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{deployment_name}}
+  template:
+    metadata:
+      labels:
+        app: {{deployment_name}}
+    spec:
+      containers:
+        - name: {{deployment_name}}
+          image: {{image_uri}}
+          #image: asia.gcr.io/dukaan-stagging/sceptre:test4-deployment
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
