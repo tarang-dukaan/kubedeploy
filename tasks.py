@@ -175,6 +175,8 @@ def deploy(repo,branch,token):
     ingress_yaml=yaml.load(ingress_yaml,Loader=yaml.Loader)
         
     apply_config(deployment_yaml,service_yaml,ingress_yaml,"default")
+    #delete the image from google cloud registery
+    subprocess.run(f"gcloud container images delete {registry}/{project_id}/{repo_name}:{image_tag} --force-delete-tags")
     print("DEPLOYED")
 
 
