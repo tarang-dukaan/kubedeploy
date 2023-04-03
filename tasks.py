@@ -167,7 +167,7 @@ def deploy(repo,branch,token):
     ingress_template = environment.from_string(ingress_template)
 
     deployment_yaml = deployment_template.render(deployment_name=repo_name+'-'+branch_slug+'-deploy',image_uri=f'{registry}/{project_id}/{repo_name}:{image_tag}')
-    service_yaml = service_template.render(service_name=repo_name+'-'+branch_slug+'-service',deployment_name=repo_name+'-'branch_slug+'-deploy')
+    service_yaml = service_template.render(service_name=repo_name+'-'+branch_slug+'-service',deployment_name=repo_name+'-'+branch_slug+'-deploy')
     ingress_yaml = ingress_template.render(ingress_name="sceptre1-ingress",domain="v2.tarang.dev",secret_name=secret_name,rules = [{"subdomain":branch_slug+'.'+"v2.tarang.dev","service_name":repo_name+'-'+branch_slug+'-service'}])
     
     deployment_yaml=yaml.load(deployment_yaml,Loader=yaml.Loader)
@@ -176,7 +176,7 @@ def deploy(repo,branch,token):
         
     apply_config(deployment_yaml,service_yaml,ingress_yaml,"default")
     #delete the image from google cloud registery
-    subprocess.run(f"gcloud container images delete {registry}/{project_id}/{repo_name}:{image_tag} --force-delete-tags")
+    subprocess.run(f"gcloud container images delete {registry}/{project_id}/{repo_name}:{image_tag} -q",shell=True)
     print("DEPLOYED")
 
 
