@@ -5,7 +5,7 @@ import yaml
 from kubernetes import client, config
 from kubernetes.client.rest import ApiException
 from config import registry,project_id,secret_name
-# Load the Kubernetes configuration from default  location
+# Load the Kubernetes configuration from default location 
 config.load_kube_config()
 import jinja2
 def get_latest_commit_for_branch(repo_name, branch_name, token):
