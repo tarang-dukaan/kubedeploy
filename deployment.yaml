@@ -15,7 +15,6 @@ spec:
       containers:
         - name: {{deployment_name}}
           image: {{image_uri}}
-          #image: asia.gcr.io/dukaan-stagging/sceptre:test4-deployment
           ports:
             - containerPort: 3000
           env:
